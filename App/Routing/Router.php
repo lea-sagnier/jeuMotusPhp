@@ -21,12 +21,10 @@ class Router
     private static string $path;
 
     private static ?Router $router = null;
-    private static ?array $user = null;
 
     private function __construct()
     {
         self::$path = $_SERVER['PATH_INFO'] ?? '/';
-        self::$user = $_SESSION['user'] ?? null;
     }
 
     public static function getFromGlobals(): Router
@@ -40,7 +38,7 @@ class Router
 
     public function getController(): Controller
     {
-        $controllerClass = $this->routes[self::$path] ?? $this->routes['/404'];
+        $controllerClass = $this->routes[self::$path] ?? $this->routes['/'];
         $controller = new $controllerClass();
 
         if (!$controller instanceof Controller) {
@@ -50,8 +48,4 @@ class Router
         return $controller;
     }
 
-    public static function getUser(): ?array
-    {
-        return self::$user;
-    }
 }

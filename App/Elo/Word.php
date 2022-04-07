@@ -6,7 +6,7 @@ namespace App\Elo;
 
 class Word
 {
-    public function __construct(public string $word = 'anonymous')
+    public function __construct()
     {
     }
 }

@@ -8,7 +8,7 @@ use App\Elo\Word;
 
 class WordsJson implements ConnectorInterface
 {
-    private const FILE_PATH = __DIR__ . '/../../../var/db.json';
+    private const FILE_PATH = __DIR__ . '/../../../var/words.json';
     private static array $words = [];
 
     private static function loadFile()
@@ -21,10 +21,24 @@ class WordsJson implements ConnectorInterface
     }
 
     public static function findWord(): Word
-    {
+    { 
+        if (!isset($_COOKIE["word"])){
         self::loadFile();
 
-        $word = reset($words);
-        return new Word($word['mot']);
+        $words = self::$words;
+
+        $one_item = $words[rand(0, count($words) - 1)];
+
+        $cookie_save = $one_item['mot'];
+        setcookie("word", $cookie_save);
+
+        $mot = reset($words);
+        return new Word($mot['mot']);
+        }
+
+        else {
+            return new Word($_COOKIE['word']);
+        }
+       
     }
 }

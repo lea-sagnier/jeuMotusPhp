@@ -39,7 +39,7 @@ use App\Infra\Memory\DbSelector;
             }else if(strtoupper($_GET["userWord"]) == $_COOKIE['word']){
                 echo 'Bravo vous avez gagné';
             }else {
-                echo 'Perdé essayé encore';
+                echo 'Perdu essayez encore';
             }
         ?>
         </p>
